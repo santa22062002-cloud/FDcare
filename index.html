@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>Đăng ký nhận thông tin</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 500px; margin: 40px auto; padding: 20px; }
+    h2 { color: #0068ff; text-align: center; }
+    form { display: flex; flex-direction: column; gap: 12px; }
+    input, button { padding: 12px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc; }
+    button { background: #0068ff; color: white; cursor: pointer; border: none; }
+    button:hover { opacity: 0.9; }
+    .zalo-btn { background: #1da1f2; }
+    .logo-container { text-align:center; margin-bottom:20px; }
+    .logo-container img { max-width: 200px; height:auto; }
+  </style>
+</head>
+<body>
+  <div class="logo-container">
+    <img src="logo.png" alt="Logo FDcare">
+  </div>
+
+  <h2>Đăng ký nhận ưu đãi</h2>
+  <form id="regForm">
+    <label>Họ và tên:
+      <input type="text" name="name" required>
+    </label>
+    <label>Số điện thoại:
+      <input type="tel" name="phone" required>
+    </label>
+
+    <a href="https://zalo.me/4250554671586271472?src=qr&f=1">
+      <button type="button" class="zalo-btn">👉 Quan tâm Zalo OA</button>
+    </a>
+
+    <button type="submit">Gửi đăng ký</button>
+  </form>
+
+  <p id="msg" style="text-align:center; color:green;"></p>
+
+  <script>
+    const form = document.getElementById("regForm");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = {
+        name: form.name.value,
+        phone: form.phone.value
+      };
+      const res = await fetch("https://script.google.com/macros/s/AKfycby1uPm0A_mhOcfeg7RQvs790GznpP67atfQtrcM_fOwxuwdpLNaUeFijWJtjljWOIqw/exec", {
+        method: "POST",
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        document.getElementById("msg").innerText = "✅ Đăng ký thành công!";
+        form.reset();
+      } else {
+        document.getElementById("msg").innerText = "❌ Lỗi, vui lòng thử lại!";
+      }
+    });
+  </script>
+</body>
+</html>
